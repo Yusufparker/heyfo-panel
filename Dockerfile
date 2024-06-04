@@ -1,7 +1,7 @@
 FROM php:8.2.4-fpm-alpine
 
 # Update apk and add necessary packages
-RUN apk update && apk add --no-cache nginx wget postgresql-dev
+RUN apk update && apk add --no-cache nginx wget postgresql-dev php5-gd php5-intl php5-xsl
 
 # Install PHP extensions for PostgreSQL
 RUN docker-php-ext-install pdo_pgsql pgsql
