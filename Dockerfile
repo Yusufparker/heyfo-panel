@@ -20,7 +20,7 @@ COPY /src /app
 
 RUN sh -c "wget http://getcomposer.org/composer.phar && chmod a+x composer.phar && mv composer.phar /usr/local/bin/composer"
 RUN cd /app && \
-    /usr/local/bin/composer install --no-dev --no-plugins --ignore-platform-req=ext-gd
+    /usr/local/bin/composer install --no-dev --no-plugins --ignore-platform-req=ext-gd --ignore-platform-req=ext-zip
 
 
 RUN chown -R www-data: /app
