@@ -1,14 +1,18 @@
 FROM php:8.2.4-fpm-alpine
 
-RUN apt-get update
+
 
 RUN apk update && apk add --no-cache nginx wget postgresql-dev
 
 RUN mkdir -p /run/nginx
 
+COPY docker/php.ini /usr/local/bin/php
+
 RUN docker-php-ext-install pdo_pgsql pgsql
 
 COPY docker/nginx.conf /etc/nginx/nginx.conf
+
+
 
 RUN mkdir -p /app
 COPY . /app
