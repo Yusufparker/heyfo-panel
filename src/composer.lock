@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bb3aa6a5fdee10a79e501a69d4367da0",
+    "content-hash": "bcc1221898c928d17d6561c57068ba7d",
     "packages": [
         {
             "name": "brick/math",
@@ -8489,6 +8489,7 @@
                 "ext-json": "*",
                 "ext-mbstring": "*",
                 "php": "^8.0",
+                "ext-gd": "*",
                 "spatie/backtrace": "^1.5.3",
                 "spatie/flare-client-php": "^1.4.0",
                 "symfony/console": "^5.4|^6.0|^7.0",
