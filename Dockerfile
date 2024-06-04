@@ -1,5 +1,8 @@
 FROM php:8.2.4-fpm-alpine
 
+RUN touch /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "extension=gd;" 
+
 RUN apk update && apk add --no-cache nginx wget postgresql-dev
 
 RUN mkdir -p /run/nginx
@@ -7,8 +10,6 @@ RUN mkdir -p /run/nginx
 RUN docker-php-ext-install pdo_pgsql pgsql
 
 COPY docker/nginx.conf /etc/nginx/nginx.conf
-
-
 
 RUN mkdir -p /app
 COPY . /app
@@ -18,8 +19,6 @@ RUN sh -c "wget http://getcomposer.org/composer.phar && chmod a+x composer.phar 
 RUN cd /app && \
     /usr/local/bin/composer install --no-dev --no-plugins
 
-RUN touch /usr/local/etc/php/conf.d/uploads.ini \
-    && echo "extension=gd;" 
 
 RUN chown -R www-data: /app
 
