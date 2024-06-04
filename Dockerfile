@@ -8,7 +8,7 @@ RUN docker-php-ext-install pdo_pgsql pgsql
 
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 
-COPY docker/php.ini /etc/php/php.ini
+
 
 RUN mkdir -p /app
 COPY . /app
@@ -17,6 +17,9 @@ COPY /src /app
 RUN sh -c "wget http://getcomposer.org/composer.phar && chmod a+x composer.phar && mv composer.phar /usr/local/bin/composer"
 RUN cd /app && \
     /usr/local/bin/composer install --no-dev --no-plugins
+
+RUN touch /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "extension=gd;" 
 
 RUN chown -R www-data: /app
 
