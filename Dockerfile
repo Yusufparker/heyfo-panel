@@ -6,7 +6,10 @@ RUN mkdir -p /run/nginx
 
 RUN docker-php-ext-install pdo_pgsql pgsql
 
+
 COPY docker/nginx.conf /etc/nginx/nginx.conf
+
+COPY php.ini /usr/local/etc/php/conf.d/php.ini
 
 RUN mkdir -p /app
 COPY . /app
