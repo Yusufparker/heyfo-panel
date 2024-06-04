@@ -1,14 +1,13 @@
 FROM php:8.2.4-fpm-alpine
 
 
-RUN apt-get update && apt-get install -y \
-        libfreetype6-dev \
-        libjpeg62-turbo-dev \
-        libpng-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd
 
-RUN apk update && apk add --no-cache nginx wget postgresql-dev
+RUN apk update && apk add --no-cache \
+    nginx \
+    wget \
+    postgresql-dev \
+    gd
+
 
 RUN mkdir -p /run/nginx
 
