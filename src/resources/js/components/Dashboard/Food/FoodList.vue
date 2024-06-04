@@ -1,10 +1,11 @@
 <template>
-    <div class="mt-5">
-        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formModal">Buat Baru</button>
+    <div class="mt-5 fs-14">
+        <button class=" border-0 bg-blue text-white p-2 me-2" data-bs-toggle="modal" data-bs-target="#formModal">Buat Baru</button>
+        <button class=" bg-success text-white border-0 p-2 " data-bs-toggle="modal" data-bs-target="#importModal">Import Excel</button>
     </div>
 
     <!-- list -->
-    <div class="mt-4 fs-14">
+    <div class="mt-5 fs-14">
         <div  v-if="isLoading" class="d-flex justify-content-center align-items-center p-5">
             <div class="spinner-border text-blue" role="status" style="width: 3rem; height: 3rem">
                 <span class="visually-hidden">Loading...</span>
@@ -31,7 +32,7 @@
                 </div>
                 <!-- Button to Open Modal -->
                 <div class="col-md-1">
-                    <button class="bg-none border-0 rounded-circle p-2 text-black fw-bold fs-14 border shadow" 
+                    <button class="bg-none rounded-circle p-2 text-black fw-bold fs-14 border shadow" 
                             :data-bs-target="'#stepModal' + index" data-bs-toggle="modal">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-info" viewBox="0 0 16 16">
@@ -67,6 +68,28 @@
 
     </div>
 
+
+
+    <!-- modal import -->
+    <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-blue text-white">
+                    <h1 class="modal-title fs-14" id="importModalLabel">Import Data</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    
+                    <input type="file" @change="handleExcel" multiple>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary fs-14" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success fs-14" @click="importExcel" :disabled="loadingImport">Import</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -164,6 +187,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import { useToast } from "vue-toastification";
 export default {
     data() {
@@ -171,6 +195,7 @@ export default {
             loadingForm: false,
             isLoading : false,
             loadingIngredient:false,
+            loadingImport:false,
             toast: useToast(),
             field: {
                 name: null,
@@ -197,9 +222,54 @@ export default {
             foods : [],
             newIngredient:null,
             isNewIngredient: false,
+            fileExcel : null
         }
     },
     methods: {
+        handleExcel(event) {
+            const files = event.target.files;
+            const file = files[0];
+            const validTypes = [
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'application/vnd.ms-excel'
+            ];
+
+            if (file && validTypes.includes(file.type)) {
+                this.fileExcel = file;
+            } else {
+                this.toast.warning("Please upload a valid Excel file.");
+                event.target.value = null; // Clear the input
+                this.fileExcel = null
+            }
+        },
+
+        async importExcel(){
+            this.loadingImport = true
+            if (!this.fileExcel) {
+                this.toast.warning("No file selected.");
+                return;
+            }
+
+            try {
+                const formData = new FormData();
+                formData.append('excel', this.fileExcel);
+
+                const response = await axios.post('/food/import', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+
+                this.toast.success("Import data berhasil!");
+                window.location.reload()
+            } catch (error) {
+                this.toast.error("Import data gagal!");
+                console.error(error);
+            }finally{
+                this.loadingImport = false
+            }
+        },
+
         addNewStep() {
             this.field.step.push({ text: '' });
         },

@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use App\Models\FoodIngredient;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Imports\FoodImport;
+use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class FoodController extends Controller
 {
@@ -22,7 +25,7 @@ class FoodController extends Controller
             DB::beginTransaction();
             $food = Food::create([
                 'uuid' => Str::uuid(),
-                'user_id' => 1,
+                'user_id' => Auth::user()->id,
                 'name' => request('name'),
                 'image' => request('image'),
             ]);
@@ -72,4 +75,35 @@ class FoodController extends Controller
 
         return response()->json($foods);
     }
+
+
+    
+
+    public function importFood(Request $request)
+    {
+        try {
+            if (!$request->hasFile('excel')) {
+                return response()->json([
+                    "status" => "failed",
+                    "msg" => "No file uploaded"
+                ], 400);
+            }
+
+            $file = $request->file('excel');
+
+            Excel::import(new FoodImport, $file);
+
+            return response()->json([
+                "status" => 'success',
+                "msg" => "Import data berhasil",
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                "status" => "failed",
+                "msg" => $th->getMessage()
+            ], 500);
+        }
+    }
+
+
 }

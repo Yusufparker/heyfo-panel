@@ -15,6 +15,7 @@ Route::prefix('food')->middleware('auth')->group(function () {
     Route::get('/', [FoodController::class, 'index'])->name('food.index');
     Route::get('/get-data', [FoodController::class, 'getFood'])->name('food.get-data');
     Route::post('/', [FoodController::class, 'store'])->name('food.store');
+    Route::post('/import', [FoodController::class, 'importFood'])->name('food.import');
 });
 
 // Ingredient routes
