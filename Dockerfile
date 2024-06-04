@@ -4,6 +4,8 @@ RUN apk add --no-cache nginx wget
 
 RUN mkdir -p /run/nginx
 
+RUN docker-php-ext-install pdo_pgsql pgsql
+
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 
 RUN mkdir -p /app
