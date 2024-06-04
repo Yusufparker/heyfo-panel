@@ -6,13 +6,14 @@ RUN apk update && apk add --no-cache nginx wget postgresql-dev
 
 RUN mkdir -p /run/nginx
 
-COPY docker/php.ini /usr/local/bin/php
 
 RUN docker-php-ext-install pdo_pgsql pgsql
 
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 
+COPY docker/php.ini /usr/local/bin/php
 
+RUN ini_set gd.enabled 1
 
 RUN mkdir -p /app
 COPY . /app
