@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="{{asset('css/app.css/') }}" rel="stylesheet">
     {{-- <link rel="shortcut icon" href="{{asset('img/logo-health.png')}}" type="image/x-icon"> --}}
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    {{-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> --}}
     <script src="https://kit.fontawesome.com/53c338f417.js" crossorigin="anonymous"></script>
     <title>Dashboard | e-health</title>
 </head>
