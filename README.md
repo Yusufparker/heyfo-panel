@@ -41,7 +41,7 @@ HeyFo API memungkinkan anda mendapatkan rekomendasi makanan sehat dan lezat deng
 
 
 
-### Get food
+### Get detail food
 
 ```http
   GET /api/foods/${uuid}
@@ -133,3 +133,59 @@ HeyFo API memungkinkan anda mendapatkan rekomendasi makanan sehat dan lezat deng
 }
 ```
 
+
+### Get all articles
+
+```http
+  GET /api/articles
+```
+#### Contoh response
+
+```
+{
+    "data": [
+        {
+            "uuid": "5f259cc1-ef43-3742-9a74-414747d3a16d",
+            "author": "Administrator",
+            "title": "Nihil quia enim similique deserunt quaerat vitae quia.",
+            "image": "https://source.unsplash.com/random/640x480/?article"
+        },
+        {
+            "uuid": "1cacc733-6b62-3662-8687-e3c41fe05ee1",
+            "author": "Administrator",
+            "title": "Dignissimos similique laboriosam quaerat fugiat.",
+            "image": "https://source.unsplash.com/random/640x480/?article"
+        },
+
+        `dan data lainnya`
+
+    ]
+}
+```
+
+### Get detail articles
+
+```http
+  GET /api/articles/${uuid}
+```
+#### Query String
+
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `uuid`      | `string` | **Required** |
+
+#### Contoh response
+
+```
+{
+    "data": {
+        "uuid": "3efce2b1-0de5-32cb-8379-443b3889582a",
+        "author": "Administrator",
+        "title": "Accusamus eligendi quo rerum.",
+        "body": "Ut harum tenetur voluptas ipsum beatae. Non sed magnam a eius eos quisquam. Deserunt enim ut ratione ut nam sint.\n\nRecusandae ea voluptas consequatur at ut molestiae molestiae perspiciatis. Quis nesciunt vel similique esse amet quae veniam. Doloremque reprehenderit aliquam quaerat dolore tempora quos harum. Ut esse vitae beatae rem cupiditate.\n\nRepellendus reprehenderit molestiae non accusantium molestiae similique sint. Facilis quas dolorum qui at minus illo quae. Aliquid numquam totam rerum voluptas dolor.",
+        "image_url": "https://source.unsplash.com/random/640x480/?article",
+        "created_at": "04 June 2024"
+    }
+}
+```
