@@ -1,66 +1,135 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# HeyFo APi Documentation
 
-## About Laravel
+HeyFo API memungkinkan anda mendapatkan rekomendasi makanan sehat dan lezat dengan mendeteksi gambar bahan makanan yang tersedia.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## API Reference
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+```http
+  https://heyfo-6ppaqiiwua-et.a.run.app/api
+```
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Get all foods
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+```http
+  GET /api/foods
+```
+#### Contoh response
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```
+{
+    "data": [
+        {
+            "uuid": "090fe96f-ae00-4799-a99c-76133693ae87",
+            "name": "Sup Ayam Sayur",
+            "image_url": "https://img.herstory.co.id/articles/archive_20220920/resep-masakan-20220920-125548.jpg"
+        },
+        {
+            "uuid": "8a1f4a3a-0c75-4ed3-ad08-4f84fb9ef43c",
+            "name": "Salad Sayurann dengan Dressing Yoghurt",
+            "image_url": "https://tse3.mm.bing.net/th?id=OIP.YjPWdWsMbaN0LTen-_QkIAHaEK&pid=Api&P=0&h=220"
+        },
 
-## Laravel Sponsors
+        `dan data lainnya..
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-### Premium Partners
+    ]
+}
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Get food
 
-## Code of Conduct
+```http
+  GET /api/foods/${uuid}
+```
+#### Query String
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `uuid`      | `string` | **Required** |
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#### Contoh response
 
-## License
+```
+{
+    "data": {
+        "uuid": "090fe96f-ae00-4799-a99c-76133693ae87",
+        "name": "Sup Ayam Sayur",
+        "image_url": "https://img.herstory.co.id/articles/archive_20220920/resep-masakan-20220920-125548.jpg",
+        "ingredients": [
+            "500 gram potong-potong daging ayam",
+            "1 liter air",
+            "1 buah potong-potong wortel",
+            "1 buah potong-potong kentang",
+            "1 batang seledri",
+            "iris tipis bawang bombai",
+            "2 siung bawang putih",
+            "garam",
+            "lada"
+        ],
+        "cooking_step": [
+            "Rebus air dalam panci hingga mendidih.",
+            "Masukkan ayam kampung, wortel, kentang, dan seledri. Rebus hingga ayam matang dan sayuran lunak.",
+            "Tumis bawang bombay dan bawang putih hingga harum.",
+            "Masukkan tumisan bawang bombay dan bawang putih ke dalam panci sup.",
+            "Bumbui dengan garam dan lada secukupnya.",
+            "Aduk rata dan masak sebentar hingga bumbu meresap.",
+            "Sajikan sup ayam sayuran selagi hangat."
+        ]
+    }
+}
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Food Prediction
+
+```http
+  POST /api/predict
+```
+
+
+
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `image`      | `file` | **Required** |
+
+#### Contoh response
+
+```
+{
+    "predict_result": [
+        "kentang",
+        "semangka"
+    ],
+    "data": [
+        {
+            "id": 1,
+            "uuid": "090fe96f-ae00-4799-a99c-76133693ae87",
+            "name": "Sup Ayam Sayur",
+            "image_url": "https://img.herstory.co.id/articles/archive_20220920/resep-masakan-20220920-125548.jpg",
+            "matched_ingredients": [
+                "kentang"
+            ],
+            "unmatched_ingredients": [
+                "daging ayam",
+                "air",
+                "wortel",
+                "seledri",
+                "bawang bombai",
+                "bawang putih",
+                "garam",
+                "lada"
+            ]
+        },
+
+        `data lainnya disini`
+
+    ]
+}
+```
+

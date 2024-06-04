@@ -14,7 +14,7 @@
 
         <div v-if="isLoading===false" v-for="(food, index) in foods" :key="index">
             <!-- Food Item -->
-            <div class="row">
+            <div class="row mb-3">
                 <!-- Food Image -->
                 <div class="col-4 col-md-2">
                     <img :src="food.image" class="w-100">
