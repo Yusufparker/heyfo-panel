@@ -1,7 +1,11 @@
 FROM php:8.2.4-fpm-alpine
 
 
-RUN apk update && apk add --no-cache nginx wget postgresql-dev zlib1g-dev
+RUN apk update && apk add --no-cache nginx wget postgresql-dev 
+
+RUN apt-get update && \
+    apt-get install -y \
+        zlib1g-dev 
 
 RUN mkdir -p /run/nginx
 
