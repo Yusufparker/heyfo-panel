@@ -1,7 +1,6 @@
 FROM php:8.2.4-fpm-alpine
 
 
-
 RUN apk update && apk add --no-cache nginx wget postgresql-dev
 
 RUN mkdir -p /run/nginx
