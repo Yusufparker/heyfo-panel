@@ -1,9 +1,17 @@
 FROM php:8.2.4-fpm-alpine
 
 
-RUN apk update && apk add --no-cache nginx wget postgresql-dev  && docker-php-ext-configure gd --with-freetype --with-jpeg \&& docker-php-ext-install -j$(nproc) gd
+RUN apt-get update && apt-get install -y \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd
+
+RUN apk update && apk add --no-cache nginx wget postgresql-dev
 
 RUN mkdir -p /run/nginx
+
 
 RUN docker-php-ext-install pdo_pgsql pgsql
 
