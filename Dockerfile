@@ -1,12 +1,11 @@
 FROM php:8.2.4-fpm-alpine
 
 
-RUN apk update && apk add --no-cache nginx wget postgresql-dev
+RUN apk update && apk add --no-cache nginx wget postgresql-dev  && docker-php-ext-configure gd --with-freetype --with-jpeg \&& docker-php-ext-install -j$(nproc) gd
 
 RUN mkdir -p /run/nginx
 
-
-RUN docker-php-ext-install pdo_pgsql pgsql gd
+RUN docker-php-ext-install pdo_pgsql pgsql
 
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 
