@@ -9,7 +9,7 @@ RUN mkdir -p /run/nginx
 
 RUN docker-php-ext-install pdo_pgsql pgsql
 
-RUN docker-php-ext-install gd
+
 
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 
