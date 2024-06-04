@@ -1,7 +1,6 @@
 FROM php:8.2.4-fpm-alpine
 
-RUN touch /usr/local/etc/php/conf.d/uploads.ini \
-    && echo "extension=gd;" 
+RUN apt-get update
 
 RUN apk update && apk add --no-cache nginx wget postgresql-dev
 
