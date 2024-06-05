@@ -1226,6 +1226,7 @@
                 "laravel/serializable-closure": "^1.3",
                 "league/commonmark": "^2.2.1",
                 "league/flysystem": "^3.8.0",
+                "ext-gd": "*",
                 "monolog/monolog": "^3.0",
                 "nesbot/carbon": "^2.72.2|^3.0",
                 "nunomaduro/termwind": "^2.0",

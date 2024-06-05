@@ -7,7 +7,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     {{-- <link rel="shortcut icon" href="{{asset('img/logo-health.png')}}" type="image/x-icon"> --}}
     <script src="https://kit.fontawesome.com/53c338f417.js" crossorigin="anonymous"></script>
-    <title>Dashboard | e-health</title>
+    <title>Dashboard | HeyFo</title>
 </head>
 <body>
     <div id="app">
