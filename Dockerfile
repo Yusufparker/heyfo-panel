@@ -7,7 +7,7 @@ RUN apk update && apk add --no-cache nginx wget postgresql-dev zlib-dev
 RUN mkdir -p /run/nginx
 
 
-RUN docker-php-ext-install pdo_pgsql pgsql
+RUN docker-php-ext-install pdo_pgsql pgsql zip
 
 
 COPY docker/nginx.conf /etc/nginx/nginx.conf
