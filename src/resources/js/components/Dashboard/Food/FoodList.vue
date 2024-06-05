@@ -113,8 +113,7 @@
                                 <!-- image -->
                                 <div class="mb-4 d-flex flex-column">
                                     <label for="image" class="text-blue mb-2">Url Gambar</label>
-                                    <input type="text" id="image" placeholder="ex : https://example.com"
-                                        v-model="field.image" required>
+                                    <input type="file" accept="image/*" @change="handleImage">
                                 </div>
 
                                 <!-- step -->
@@ -270,6 +269,20 @@ export default {
             }
         },
 
+        handleImage(event) {
+            const files = event.target.files;
+            const file = files[0];
+            const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+
+            if (!validTypes.includes(file.type)) {
+                this.toast.warning('Tipa file tidak sesuai!');
+                this.field.image = null
+                return;
+            }
+
+            this.field.image = file;
+        },
+
         addNewStep() {
             this.field.step.push({ text: '' });
         },
@@ -307,19 +320,34 @@ export default {
         toggleNewIngredient(){ 
             this.isNewIngredient = !this.isNewIngredient 
         },
+
+
         async submitForm() {
             this.loadingForm = true
             try {
-                await axios.post('/food',{
-                    name : this.field.name,
-                    image : this.field.image,
-                    cooking_step : this.field.step,
-                    ingredients : this.field.ingredients
+                const formData = new FormData();
+                formData.append('image', this.field.image);
+                formData.append('name', this.field.name);
+                formData.append('cooking_step', JSON.stringify(this.field.step));
+                formData.append('ingredients', JSON.stringify(this.field.ingredients));
+                const response = await axios.post('/food', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
                 })
-                this.toast.success("Data berhasil ditambahkan!");
-                window.location.reload()
+
+                if(response.data.status ==='success'){
+                    this.toast.success("Data berhasil ditambahkan!");
+                    window.location.reload()
+
+                }else{
+                    this.toast.warning("Data gagal ditambahkan!")
+                }
+                
+                
             } catch (error) {
-                alert(error)
+
+                this.toast.error(error)
             } finally{
                 this.loadingForm = false
             }
@@ -330,7 +358,6 @@ export default {
             try {
                 const response = await axios.get('/ingredient/getData')
                 this.ingredients = response.data
-                // console.log(this.ingredients);
             } catch (error) {
                 console.log(error);
             }

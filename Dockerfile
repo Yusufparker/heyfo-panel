@@ -22,6 +22,10 @@ RUN sh -c "wget http://getcomposer.org/composer.phar && chmod a+x composer.phar 
 RUN cd /app && \
     /usr/local/bin/composer install --no-dev --no-plugins --ignore-platform-req=ext-gd 
 
+# Build argument for service account file
+ARG GOOGLE_APPLICATION_CREDENTIALS
+COPY ${GOOGLE_APPLICATION_CREDENTIALS} /app/service-account.json
+
 
 RUN chown -R www-data: /app
 

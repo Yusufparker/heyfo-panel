@@ -2,9 +2,11 @@
 
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Dashboard\Article\ArticleController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\Food\FoodController;
 use App\Http\Controllers\Dashboard\Ingredient\IngredientController;
+use App\Http\Controllers\FilesController;
 use Illuminate\Support\Facades\Route;
 
 // Dashboard routes
@@ -25,9 +27,17 @@ Route::prefix('ingredient')->middleware('auth')->group(function () {
 });
 
 
+// Article routes
+Route::prefix('article')->middleware('auth')->group(function(){
+    Route::get('/',[ArticleController::class,'index'])->name('article.index');
+});
+
+
 Route::get('/login',[AuthController::class,'index'])->name('login')->middleware('guest');
 Route::post('/login',[AuthController::class, 'auth'])->middleware('guest');
 Route::post('/logout', [AuthController::class, 'logout']);
+
+
 
 
 
