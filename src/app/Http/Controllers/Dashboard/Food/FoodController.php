@@ -25,7 +25,7 @@ class FoodController extends Controller
         try {
             DB::beginTransaction();
             $validatedData = $request->validate([
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Menentukan jenis file dan ukuran maksimum
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif', // Menentukan jenis file dan ukuran maksimum
             ]);
             $disk = Storage::disk('gcs');
             $image = $request->file('image');
@@ -36,7 +36,7 @@ class FoodController extends Controller
             
 
             $food = Food::create([
-                'uuid' => Str::uuid(),  
+                'uuid' => Str::uuid(),
                 'user_id' => Auth::user()->id,
                 'name' => request('name'),
                 'image' => $url,
