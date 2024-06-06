@@ -30,7 +30,7 @@ RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini && \
 
 # Build argument for service account file
 ARG GOOGLE_APPLICATION_CREDENTIALS
-COPY ${GOOGLE_APPLICATION_CREDENTIALS} /app/service-account.json
+COPY ${GOOGLE_APPLICATION_CREDENTIALS} /src/service-account.json
 
 
 RUN chown -R www-data: /app

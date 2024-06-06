@@ -36,7 +36,7 @@ class FoodController extends Controller
             
 
             $food = Food::create([
-                'uuid' => Str::uuid(),
+                'uuid' => Str::uuid(),  
                 'user_id' => Auth::user()->id,
                 'name' => request('name'),
                 'image' => $url,
