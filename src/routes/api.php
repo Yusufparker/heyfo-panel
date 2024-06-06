@@ -11,6 +11,3 @@ Route::get('/articles', [DataController::class, 'getArticles']);
 Route::get('/articles/{uuid}', [DataController::class, 'getArticleByUuid']);
 Route::get('/foods',[DataController::class, 'getFoods']);
 Route::get('/foods/{uuid}',[DataController::class, 'getFoodByUuid']);
-
-
-

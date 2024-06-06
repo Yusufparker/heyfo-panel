@@ -11,7 +11,7 @@
 </head>
 <body>
     <div id="app">
-        <dashboard-layout   :auth="{{json_encode(Auth::user())}}">
+        <dashboard-layout>
         @yield('content')
         </dashboard-layout>
     </div>

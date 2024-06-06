@@ -61,8 +61,8 @@
                 </div>
             </div>
             <div class="d-flex flex-column align-self-center">
-                <span class="fw-bold">{{auth.name}}</span>
-                <span class="">{{auth.email}}</span>
+                <span class="fw-bold">Admin</span>
+                <span class="">Admin@gmail.com</span>
             </div>
         </div>
     </section>
@@ -128,9 +128,6 @@
 
 <script>
 export default {
-    props:[
-        'auth'
-    ],
     data() {
         return {
             url: window.location.pathname,
