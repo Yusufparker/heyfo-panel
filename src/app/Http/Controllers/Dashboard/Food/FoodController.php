@@ -25,7 +25,7 @@ class FoodController extends Controller
         try {
             DB::beginTransaction();
             $validatedData = $request->validate([
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif', // Menentukan jenis file dan ukuran maksimum
+                'image' => 'required|image', // Menentukan jenis file dan ukuran maksimum
             ]);
             $disk = Storage::disk('gcs');
             $image = $request->file('image');
