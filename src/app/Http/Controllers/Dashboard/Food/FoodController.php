@@ -41,13 +41,7 @@ class FoodController extends Controller
             ]);
             $disk = Storage::disk('gcs');
             $image = $this->uploadFile($request->file('image'), 'foods');
-
-
-
             $url = $disk->url($image);
-
-            
-
             $food = Food::create([
                 'uuid' => Str::uuid(),
                 'user_id' => Auth::user()->id,
