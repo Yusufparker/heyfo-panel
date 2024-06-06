@@ -28,10 +28,16 @@ class FoodController extends Controller
                 'image' => 'required|image', // Menentukan jenis file dan ukuran maksimum
             ]);
             $disk = Storage::disk('gcs');
-            $image = $request->file('image');
-            // 'foods' folder on gcs bucket
-            $imagePath = $disk->put('foods', $image);
-            $url = $disk->url($imagePath);
+
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $fileName = time() . '.' . $image->getClientOriginalExtension();
+                $imagePath = $disk->put('foods/' . $fileName, $image);
+                $url = $disk->url($imagePath);
+            } else {
+                // Handle the case where no file was uploaded (optional)
+                return response()->json(['error' => 'No image uploaded'], 422);
+            }
 
             
 
