@@ -8,17 +8,29 @@ use App\Models\CookingStep;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\FoodIngredient;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 class FoodController extends Controller
 {
     //
     public function index(){
         return view('dashboard.food.index');
+    }
+
+    public function uploadFile(UploadedFile $file, $folder = null, $filename = null)
+    {
+        $name = !is_null($filename) ? $filename : Str::random(25);
+
+        return $file->storeAs(
+            $folder,
+            $name . "." . $file->getClientOriginalExtension(),
+            'gcs'
+        );
     }
 
     public function store(Request $request){
@@ -28,11 +40,11 @@ class FoodController extends Controller
                 'image' => 'required|image', // Menentukan jenis file dan ukuran maksimum
             ]);
             $disk = Storage::disk('gcs');
-            $image = $request->file('image');
-            dd($image);
-            // 'foods' folder on gcs bucket
-            $imagePath = $disk->put('foods', $image);
-            $url = $disk->url($imagePath);
+            $image = $this->uploadFile($request->file('image'), 'foods');
+
+
+
+            $url = $disk->url($image);
 
             
 
