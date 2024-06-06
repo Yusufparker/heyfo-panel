@@ -27,6 +27,7 @@ RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini && \
     sed -i 's/post_max_size = .*/post_max_size = 128M/g' /usr/local/etc/php/php.ini && \
     sed -i 's/memory_limit = .*/memory_limit = 512M/g' /usr/local/etc/php/php.ini
 
+COPY docker/php.ini /usr/local/etc/php/php.ini
 
 # Build argument for service account file
 ARG GOOGLE_APPLICATION_CREDENTIALS
