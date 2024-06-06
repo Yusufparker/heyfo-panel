@@ -71,8 +71,8 @@ export default {
 
 <style scoped>
 .body {
-    background: rgb(3, 93, 129);
-    background: linear-gradient(34deg, rgba(3, 93, 129, 1) 0%, rgba(44, 183, 238, 1) 100%);
+    background: #17965d;
+    background: linear-gradient(34deg, #155f3e 0%, #63d7a3 100%);
 }
 
 .login {
@@ -93,7 +93,7 @@ input::placeholder {
 }
 
 input:focus {
-    border-bottom: 2px solid #0081b4;
+    border-bottom: 2px solid #40A578;
     transition: ease .5s;
 
 }
@@ -101,22 +101,22 @@ input:focus {
 button {
     border: 0;
     padding: 10px;
-    background-color: #0081b4;
+    background-color: #40A578;
     color: white;
     transition: all .3s;
 }
 
 button:hover {
-    background-color: #106687;
+    background-color: #1d6444;
     transition: all .3s;
 }
 
 button:disabled {
-    background-color: #85bed4;
+    background-color: #59b48b;
 }
 
 button:disabled:hover {
-    background-color: #85bed4;
+    background-color: #59b48b;
     cursor: no-drop;
 }
 
